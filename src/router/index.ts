@@ -39,3 +39,6 @@ router.beforeEach(async (to) => {
 
 
 export default router
+
+
+//criar pasta services para usar o axios, configurar instancia padrão
