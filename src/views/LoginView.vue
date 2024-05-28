@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import axiosConfig from '@/services/axiosConfiguration'
 import { ref } from 'vue'
 import { useUserStore } from '@/stores/user'
+import { loginUser } from '@/services/userService'
 
 const username = ref<string>('')
 const password = ref<string>('')
-
 const { login } = useUserStore()
 
 const handleLogin = () => {
@@ -13,11 +12,7 @@ const handleLogin = () => {
     alert('Please fill in all fields')
     return
   }
-  axiosConfig
-    .post('/auth/login', {
-      username: username.value,
-      password: password.value
-    })
+  loginUser({ username: username.value, password: password.value })
     .then(res => {
       login(res.data)
     })

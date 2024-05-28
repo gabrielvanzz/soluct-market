@@ -2,8 +2,6 @@
 import type { Product } from '@/utils/Product'
 
 const props = defineProps<{ product: Product }>()
-
-console.log(props.product)
 </script>
 
 <template>
