@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 import router from '@/router'
 
 export const useUserStore = defineStore('user', () => {
-  // const userData = ref({})
   const isAuthenticated = ref()
 
   function login(response: { token: string }) {

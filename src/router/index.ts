@@ -14,31 +14,18 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('../views/LoginView.vue')
-      
-    },
+    }
   ]
 })
 
-router.beforeEach(async (to) => {
+router.beforeEach(async to => {
   const { isAuthenticated } = useUserStore()
-  if (
-    !isAuthenticated &&
-    to.name !== 'login'
-  ) {
+  if (!isAuthenticated && to.name !== 'login') {
     return { name: 'login' }
   }
-  if (
-    isAuthenticated &&
-    to.name === 'login'
-  ) {
+  if (isAuthenticated && to.name === 'login') {
     return { name: 'home' }
   }
-  
 })
 
-
-
 export default router
-
-
-//criar pasta services para usar o axios, configurar instancia padrão

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user'
-import { LogOut, Plus, ShoppingCart } from 'lucide-vue-next'
+import { LogOut, ShoppingCart } from 'lucide-vue-next'
 
 const { logout } = useUserStore()
 </script>
