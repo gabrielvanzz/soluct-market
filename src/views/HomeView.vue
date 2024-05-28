@@ -43,6 +43,12 @@ watch([sortBy, selectedOption], () => {
 })
 
 watch(selectedCategory, () => {
+  if (selectedCategory.value === '') {
+    getProducts().then(response => {
+      products.value = response.data
+    })
+    return
+  }
   getProductsByCategory(selectedCategory.value).then(response => {
     products.value = response.data
   })
