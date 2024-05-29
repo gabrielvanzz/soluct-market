@@ -2,6 +2,9 @@
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue'
 import type { Product } from '@/utils/Product'
 import { EditIcon, XIcon } from 'lucide-vue-next'
+import { ref } from 'vue'
+import ViewingModal from './Modal/ViewingModal.vue'
+import EditingModal from './Modal/EditingModal.vue'
 
 const props = defineProps({
   isOpen: Boolean,
@@ -11,10 +14,13 @@ const props = defineProps({
   }
 })
 
+const isEditing = ref(false)
+
 const emit = defineEmits(['update:isOpen'])
 
 function closeModal() {
   emit('update:isOpen', false)
+  isEditing.value = false
 }
 </script>
 
@@ -45,7 +51,7 @@ function closeModal() {
             leave-to="opacity-0 scale-95"
           >
             <DialogPanel
-              class="w-11/12 transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+              class="w-8/12 transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
             >
               <div class="flex flex-row justify-between">
                 <div
@@ -54,7 +60,7 @@ function closeModal() {
                   <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
                     {{ props.product?.title }}
                   </DialogTitle>
-                  <button class="">
+                  <button @click="isEditing = true" v-if="!isEditing">
                     <EditIcon class="h-5 w-5" />
                   </button>
                 </div>
@@ -62,29 +68,17 @@ function closeModal() {
                   <XIcon class="h-6 w-6" />
                 </button>
               </div>
-              <div class="mt-10 flex flex-col justify-evenly lg:flex-row">
-                <div class="p-4">
-                  <img :src="props.product?.image" alt="props.image" class="mx-auto h-40 w-40" />
-                </div>
-                <div class="lg:w-1/2">
-                  <label class="text-sm font-semibold text-gray-700">Description</label>
-                  <p class="text-sm text-gray-500">
-                    {{ props.product?.description }}
-                  </p>
-                  <label class="text-sm font-semibold text-gray-700">Category</label>
-                  <p class="text-sm text-gray-500">
-                    {{ props.product?.category }}
-                  </p>
-                  <label class="text-sm font-semibold text-gray-700">Price</label>
-                  <p class="text-sm text-gray-500">
-                    {{ props.product?.price.toFixed(2) }}
-                  </p>
-                </div>
-              </div>
+              <ViewingModal v-if="!isEditing" :product="props.product" />
+              <EditingModal
+                v-if="isEditing"
+                :product="props.product"
+                @update:is-editing="isEditing = $event"
+              />
 
               <div class="mt-5 flex justify-start">
                 <div class="flex items-center">
                   <button
+                    v-if="!isEditing"
                     class="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                   >
                     Excluir
