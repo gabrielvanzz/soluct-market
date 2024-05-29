@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Product } from '@/utils/Product'
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import ProductCard from '@/components/ProductCard.vue'
 import SelectOption from '@/components/SelectOption.vue'
 import DropdownFilter from '@/components/DropdownFilter.vue'
@@ -24,7 +24,6 @@ const openModal = (product: Product) => {
 onMounted(() => {
   getProducts().then(response => {
     products.value = response.data
-    console.log(products.value)
   })
   getAllCategories().then(response => {
     categories.value = response.data
@@ -65,10 +64,10 @@ watch(selectedCategory, () => {
 <template>
   <div class="mt-5">
     <h1 class="text-center text-3xl font-bold">Products</h1>
-    <hr class="mx-auto my-5 w-1/6" />
-    <div class="mr-5 flex items-center justify-end gap-4 p-5">
+    <hr class="mx-auto my-5 w-1/2 lg:w-1/6" />
+    <div class="mr-5 flex w-full items-center justify-end gap-4 p-5">
       <EyeIcon class="h-6 w-6" />
-      <SelectOption v-model="selectedOption" :options="options" />
+      <SelectOption v-model="selectedOption" :options="options" class="w-1/4" />
       <DropdownFilter :items="categories" @filter="handleChangeCategory" />
       <button @click="handleChangeSortBy" class="flex items-center justify-center px-4 py-2">
         <ArrowDownUp class="h-6 w-6" />

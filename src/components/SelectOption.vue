@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import {
-  Listbox,
-  ListboxLabel,
-  ListboxButton,
-  ListboxOptions,
-  ListboxOption
-} from '@headlessui/vue'
+import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue'
 
 import { CheckIcon, ChevronsUpDownIcon } from 'lucide-vue-next'
 
@@ -27,7 +21,7 @@ const model = defineModel()
 </script>
 
 <template>
-  <div class="w-48">
+  <div class="lg:w-48">
     <Listbox v-model="model" :disabled="props.disabled" :defaultValue="defaultValue">
       <div class="relative mt-1">
         <ListboxButton
