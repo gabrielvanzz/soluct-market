@@ -7,7 +7,8 @@
     <a href="#project-setup">Project Setup</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     <a href="#project-structure">Project Structure</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     <a href="#project-dependencies">Project Dependencies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-    <a href="#how-to-test">Project Tests</a>
+    <a href="#how-to-test">Project Tests</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a href="https://www.notion.so/Soluct-Market-644a9bdceff14be5a2e27df2dd62669a?pvs=4">Project Board</a>
 </p>
 <hr>
 
