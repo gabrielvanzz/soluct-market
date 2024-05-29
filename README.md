@@ -1,6 +1,6 @@
-# soluct-market
+<h1 align="center">soluct-market</h1>
 
-Project made with the purpose of avaliation on a job interview, focused on the frontend.
+<p align="center">Project made with the purpose of avaliation on a job interview, focused on the frontend.</p>
 <hr>
 
 <p align="center">
@@ -9,6 +9,7 @@ Project made with the purpose of avaliation on a job interview, focused on the f
     <a href="#project-dependencies">Project Dependencies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     <a href="#how-to-test">Project Tests</a>
 </p>
+<hr>
 
 
 ## Recommended IDE Setup
