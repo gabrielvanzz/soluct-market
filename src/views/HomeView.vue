@@ -8,12 +8,18 @@ import DropdownFilter from '@/components/DropdownFilter.vue'
 import { ArrowDownUp } from 'lucide-vue-next'
 import { getAllCategories, getProducts, getProductsByCategory } from '@/services/productService'
 import { options, type SortBy } from '@/utils/ProductOptions'
+import ProductModal from '@/components/ProductModal.vue'
 
 const products = ref<Product[]>([])
 const sortBy = ref<SortBy>('asc')
 const selectedOption = ref<string>('')
 const selectedCategory = ref<string>('')
 const categories = ref<string[]>([])
+const selectedProduct = ref<Product | null>(null)
+
+const openModal = (product: Product) => {
+  selectedProduct.value = product
+}
 
 onMounted(() => {
   getProducts().then(response => {
@@ -24,16 +30,16 @@ onMounted(() => {
   })
 })
 
+const handleCloseModal = () => {
+  selectedProduct.value = null
+}
+
 const handleChangeSortBy = () => {
   sortBy.value = sortBy.value === 'asc' ? 'desc' : 'asc'
 }
 
 const handleChangeCategory = (filter: string) => {
-  // getProductsByCategory(selectedCategory.value).then(response => {
-  //   products.value = response.data
-  // })
   selectedCategory.value = filter
-  console.log(selectedCategory.value)
 }
 
 watch([sortBy, selectedOption], () => {
@@ -57,25 +63,29 @@ watch(selectedCategory, () => {
 
 <template>
   <div class="mt-5">
-    <h1 class="text-3xl font-bold text-center">Products</h1>
-    <hr class="w-1/6 mx-auto my-5" />
-    <div class="flex justify-end items-end mr-5 p-5 gap-4">
+    <h1 class="text-center text-3xl font-bold">Products</h1>
+    <hr class="mx-auto my-5 w-1/6" />
+    <div class="mr-5 flex items-end justify-end gap-4 p-5">
       <span class="mr-2">Displayed Items</span>
       <SelectOption v-model="selectedOption" :options="options" />
       <DropdownFilter :items="categories" @filter="handleChangeCategory" />
-      <button @click="handleChangeSortBy" class="flex items-center justify-center py-2 px-4">
+      <button @click="handleChangeSortBy" class="flex items-center justify-center px-4 py-2">
         <ArrowDownUp class="h-6 w-6" />
       </button>
     </div>
-    <div class="flex justify-end items-center"></div>
+    <div class="flex items-center justify-end"></div>
     <div class="flex flex-col justify-center lg:flex-row lg:flex-wrap">
-      <div
-        class="flex box-border lg:w-1/5 m-5 p-5 bg-white rounded-lg shadow-lg items-center justify-center"
+      <ProductCard
         v-for="product in products"
+        @click="openModal(product)"
+        :product="product"
         :key="product.id"
-      >
-        <ProductCard :product="product" />
-      </div>
+      />
+      <ProductModal
+        :isOpen="!!selectedProduct"
+        :product="selectedProduct"
+        @update:isOpen="handleCloseModal"
+      />
     </div>
   </div>
 </template>
