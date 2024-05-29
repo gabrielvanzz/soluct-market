@@ -5,7 +5,7 @@ import { LogOut, ShoppingCart } from 'lucide-vue-next'
 const { logout } = useUserStore()
 </script>
 <template>
-  <div class="sticky top-0 flex h-28 w-full bg-soluct-dark-blue">
+  <div class="top-0 flex h-28 w-full bg-soluct-dark-blue">
     <header
       class="group flex w-full items-center justify-center font-semibold text-soluct-light-blue lg:justify-between"
     >

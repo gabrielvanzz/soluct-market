@@ -1,3 +1,4 @@
+import type { Product } from '@/utils/Product'
 import axiosConfig from './axiosConfiguration'
 import type { SortBy } from '@/utils/ProductOptions'
 
@@ -27,5 +28,20 @@ export async function getAllCategories() {
   return axiosConfig({
     method: 'GET',
     url: '/products/categories'
+  })
+}
+
+export async function updateProduct(productId: number, data: Product) {
+  return axiosConfig({
+    method: 'PUT',
+    url: `/products/${productId}`,
+    data: data
+  })
+}
+
+export async function deleteProduct(productId: number) {
+  return axiosConfig({
+    method: 'DELETE',
+    url: `/products/${productId}`
   })
 }

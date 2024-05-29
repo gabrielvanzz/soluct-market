@@ -7,3 +7,22 @@ export const options = [
   { value: '20', label: '20' },
   { value: '', label: 'All' }
 ]
+
+export const categories = [
+  {
+    value: 'electronics',
+    label: 'Electronics'
+  },
+  {
+    value: 'jewelery',
+    label: 'Jewelery'
+  },
+  {
+    value: "men's clothing",
+    label: "Men's Clothing"
+  },
+  {
+    value: "woman's clothing",
+    label: "Woman's Clothing"
+  }
+]
