@@ -5,7 +5,7 @@ import ProductCard from '@/components/ProductCard.vue'
 import SelectOption from '@/components/SelectOption.vue'
 import DropdownFilter from '@/components/DropdownFilter.vue'
 
-import { ArrowDownUp } from 'lucide-vue-next'
+import { ArrowDownUp, EyeIcon } from 'lucide-vue-next'
 import { getAllCategories, getProducts, getProductsByCategory } from '@/services/productService'
 import { options, type SortBy } from '@/utils/ProductOptions'
 import ProductModal from '@/components/ProductModal.vue'
@@ -24,6 +24,7 @@ const openModal = (product: Product) => {
 onMounted(() => {
   getProducts().then(response => {
     products.value = response.data
+    console.log(products.value)
   })
   getAllCategories().then(response => {
     categories.value = response.data
@@ -65,8 +66,8 @@ watch(selectedCategory, () => {
   <div class="mt-5">
     <h1 class="text-center text-3xl font-bold">Products</h1>
     <hr class="mx-auto my-5 w-1/6" />
-    <div class="mr-5 flex items-end justify-end gap-4 p-5">
-      <span class="mr-2">Displayed Items</span>
+    <div class="mr-5 flex items-center justify-end gap-4 p-5">
+      <EyeIcon class="h-6 w-6" />
       <SelectOption v-model="selectedOption" :options="options" />
       <DropdownFilter :items="categories" @filter="handleChangeCategory" />
       <button @click="handleChangeSortBy" class="flex items-center justify-center px-4 py-2">

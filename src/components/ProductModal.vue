@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue'
-import { computed, ref } from 'vue'
 import type { Product } from '@/utils/Product'
-import { Edit, EditIcon, XIcon } from 'lucide-vue-next'
+import { EditIcon, XIcon } from 'lucide-vue-next'
 
 const props = defineProps({
   isOpen: Boolean,
@@ -49,11 +48,13 @@ function closeModal() {
               class="w-11/12 transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
             >
               <div class="flex flex-row justify-between">
-                <div class="inline-flex items-center justify-center gap-2">
+                <div
+                  class="flex-col items-center justify-center lg:inline-flex lg:flex-row lg:gap-2"
+                >
                   <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
                     {{ props.product?.title }}
                   </DialogTitle>
-                  <button>
+                  <button class="">
                     <EditIcon class="h-5 w-5" />
                   </button>
                 </div>
@@ -81,7 +82,7 @@ function closeModal() {
                 </div>
               </div>
 
-              <div class="flex items-end justify-between">
+              <div class="mt-5 flex justify-start">
                 <div class="flex items-center">
                   <button
                     class="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
@@ -89,13 +90,6 @@ function closeModal() {
                     Excluir
                   </button>
                 </div>
-                <button
-                  type="button"
-                  class="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                  @click="closeModal"
-                >
-                  Fechar
-                </button>
               </div>
             </DialogPanel>
           </TransitionChild>

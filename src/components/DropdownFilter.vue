@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { SlidersHorizontal } from 'lucide-vue-next'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
-import { ref } from 'vue'
 
 const props = defineProps({
   items: {
