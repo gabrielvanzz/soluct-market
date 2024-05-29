@@ -1,10 +1,15 @@
-# soluct-market
+<h1 align="center">soluct-market</h1>
 
-Project made with the purpose of avaliation on a job interview, focused on the frontend.
+<p align="center">Project made with the purpose of avaliation on a job interview, focused on the frontend.</p>
+<hr>
 
 <p align="center">
-    <a href="Project Setup"></a>
+    <a href="#project-setup">Project Setup</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a href="#project-structure">Project Structure</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a href="#project-dependencies">Project Dependencies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a href="#how-to-test">Project Tests</a>
 </p>
+<hr>
 
 
 ## Recommended IDE Setup
@@ -60,7 +65,7 @@ npm run lint
 ```
 
 
-### Project Structure
+## Project Structure
 
 - src/assets :  Containing the static files like, images and fonts
 - src/components: Containing the components of the project that are reusable
@@ -71,7 +76,7 @@ npm run lint
 - src/views: Containing the 'pages' of the project, with each View linked with a route
 
 
-### Project Dependencies
+## Project Dependencies
 
 - [Vue 3](https://v3.vuejs.org/)
 - [Vite](https://vitejs.dev/)
@@ -88,7 +93,7 @@ npm run lint
 - [Headless UI](https://headlessui.dev/)
 
 
-## How to Test?
+## How to Test
 
 ### In the toggles, you can see the instructions to test each part of the project
 <details>
