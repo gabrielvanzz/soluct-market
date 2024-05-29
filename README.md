@@ -4,10 +4,10 @@ Project made with the purpose of avaliation on a job interview, focused on the f
 <hr>
 
 <p align="center">
-    <a href="Project Setup">Project Setup</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-    <a href="Project Structure">Project Structure</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-    <a href="Project Dependencies">Project Dependencies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-    <a href="How to Test?">Project Tests</a>
+    <a href="#project-setup">Project Setup</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a href="#project-structure">Project Structure</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a href="#project-dependencies">Project Dependencies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a href="#how-to-test">Project Tests</a>
 </p>
 
 
@@ -92,7 +92,7 @@ npm run lint
 - [Headless UI](https://headlessui.dev/)
 
 
-## How to Test?
+## How to Test
 
 ### In the toggles, you can see the instructions to test each part of the project
 <details>
