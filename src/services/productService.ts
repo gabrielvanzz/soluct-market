@@ -38,3 +38,10 @@ export async function updateProduct(productId: number, data: Product) {
     data: data
   })
 }
+
+export async function deleteProduct(productId: number) {
+  return axiosConfig({
+    method: 'DELETE',
+    url: `/products/${productId}`
+  })
+}
