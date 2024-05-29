@@ -7,6 +7,6 @@
   "trailingComma": "none",
   "bracketSpacing": true,
   "arrowParens": "avoid",
-  "tailwindConfig": "./styles/tailwind.config.js"
-
+  "tailwindFunctions": ["tw"],
+  "plugins": ["prettier-plugin-tailwindcss"]
 }
