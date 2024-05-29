@@ -23,13 +23,13 @@ const filter = (selectedItem: string) => {
       <MenuButton
         class="inline-flex w-full justify-center rounded-md px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
       >
-        <SlidersHorizontal class="w-6 h-6" />
+        <SlidersHorizontal class="h-6 w-6" />
       </MenuButton>
 
       <MenuItems
         class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
       >
-        <MenuItem v-for="item in items" :key="item" as="div" v-slot="{ active }">
+        <MenuItem v-for="item in props.items" :key="item" as="div" v-slot="{ active }">
           <button
             :class="[
               active ? 'bg-gray-500 text-white' : 'text-gray-900',

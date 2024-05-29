@@ -23,23 +23,23 @@ const handleLogin = () => {
 </script>
 
 <template>
-  <div class="flex items-center justify-center h-screen sm:">
+  <div class="sm: flex h-screen items-center justify-center">
     <div>
-      <h1 class="text-3xl font-bold text-center">Login</h1>
-      <form class="flex flex-col space-y-4 mt-4" @submit.prevent="handleLogin">
+      <h1 class="text-center text-3xl font-bold">Login</h1>
+      <form class="mt-4 flex flex-col space-y-4" @submit.prevent="handleLogin">
         <input
           type="text"
           placeholder="Username"
           v-model="username"
-          class="p-2 border border-gray-300 rounded-md focus-within:border-blue-300 focus-within:ring-2 focus-within:ring-blue-100 outline-none"
+          class="rounded-md border border-gray-300 p-2 outline-none focus-within:border-blue-300 focus-within:ring-2 focus-within:ring-blue-100"
         />
         <input
           type="password"
           placeholder="Password"
           v-model="password"
-          class="p-2 border border-gray-300 rounded-md focus-within:border-blue-300 focus-within:ring-2 focus-within:ring-blue-100 outline-none"
+          class="rounded-md border border-gray-300 p-2 outline-none focus-within:border-blue-300 focus-within:ring-2 focus-within:ring-blue-100"
         />
-        <button type="submit" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700">
+        <button type="submit" class="rounded-md bg-blue-500 p-2 text-white hover:bg-blue-700">
           Login
         </button>
       </form>
