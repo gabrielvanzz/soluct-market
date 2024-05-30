@@ -32,7 +32,7 @@ const filter = (selectedItem: string) => {
         <MenuItem v-for="item in props.items" :key="item.value" as="div" v-slot="{ active }">
           <button
             :class="[
-              active ? 'bg-gray-500 text-white' : 'text-gray-900',
+              active ? 'bg-blue-100 text-blue-900' : 'text-soluct-dark-blue',
               'group flex w-full items-center rounded-md px-2 py-2 text-sm'
             ]"
             @click="filter(item.value)"
@@ -43,7 +43,7 @@ const filter = (selectedItem: string) => {
         <MenuItem v-slot="{ active }" as="div">
           <button
             :class="[
-              active ? 'bg-gray-500 text-white' : 'text-gray-900',
+              active ? 'bg-blue-100 text-blue-900' : 'text-soluct-dark-blue',
               'group flex w-full items-center rounded-md px-2 py-2 text-sm'
             ]"
             @click="filter('')"

@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import { useUserStore } from '@/stores/user'
 
 const router = createRouter({
@@ -8,12 +7,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: () => import('../views/HomeProductView.vue')
     },
     {
       path: '/login',
       name: 'login',
       component: () => import('../views/LoginView.vue')
+    },
+    {
+      path: '/new-product',
+      name: 'newProduct',
+      component: () => import('../views/InsertProductView.vue')
     }
   ]
 })
