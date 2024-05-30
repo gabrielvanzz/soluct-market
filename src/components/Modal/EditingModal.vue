@@ -8,10 +8,14 @@ import SelectOption from '../SelectOption.vue'
 import { updateProduct } from '@/services/productService'
 import { useCategoryStore } from '@/stores/category'
 import { useProductStore } from '@/stores/product'
+import { useToastStore } from '@/stores/toast'
+import ToastList from '../Toast/ToastList.vue'
 
 const { categories } = useCategoryStore()
 
 const { products } = useProductStore()
+
+const toastStore = useToastStore()
 
 const props = defineProps({
   product: {
@@ -32,15 +36,17 @@ const editedItem = ref<Product>({
 const handleSubmit = () => {
   updateProduct(editedItem.value.id ?? 0, editedItem.value)
     .then(() => {
-      alert('Product updated successfully')
       const indexToEdit = products.findIndex(product => product.id === editedItem.value.id)
       if (indexToEdit > -1) {
         products[indexToEdit] = editedItem.value
       }
-      closeModal()
+      toastStore.add({ message: 'Product updated successfully!', status: 'success' })
+      setTimeout(() => {
+        closeModal()
+      }, 1000)
     })
-    .catch(err => {
-      console.log(err)
+    .catch(() => {
+      toastStore.add({ message: 'Error on update the product', status: 'error' })
     })
 }
 
@@ -48,14 +54,17 @@ const emit = defineEmits(['update:isEditing', 'update:isOpen'])
 
 function closeEdit() {
   emit('update:isEditing', false)
+  toastStore.remove(toastStore.toasts[0].id)
 }
 
 function closeModal() {
   emit('update:isOpen', false)
+  toastStore.remove(toastStore.toasts[0].id)
 }
 </script>
 
 <template>
+  <ToastList />
   <form @submit.prevent="handleSubmit">
     <div class="mt-10 flex flex-col justify-evenly lg:flex-row">
       <div class="flex w-full flex-col items-center justify-center p-4 lg:w-1/2">

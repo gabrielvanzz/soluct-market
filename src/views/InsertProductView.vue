@@ -2,13 +2,16 @@
 import ButtonComponent from '@/components/ButtonComponent.vue'
 import InputComponent from '@/components/InputComponent.vue'
 import SelectOption from '@/components/SelectOption.vue'
+import ToastList from '@/components/Toast/ToastList.vue'
 import router from '@/router'
 import { insertProduct } from '@/services/productService'
 import { useCategoryStore } from '@/stores/category'
 import { useProductStore } from '@/stores/product'
+import { useToastStore } from '@/stores/toast'
 import { ref } from 'vue'
 
 const { categories } = useCategoryStore()
+const toastStore = useToastStore()
 
 const emptyState = {
   name: '',
@@ -24,15 +27,25 @@ const { products } = useProductStore()
 const newProduct = ref(emptyState)
 
 const handleSubmit = () => {
-  insertProduct(newProduct.value).then(res => {
-    products.push(res.data)
-  })
-  router.push('/')
-  newProduct.value = emptyState
+  if (newProduct.value === emptyState) {
+    console.log('aqui')
+    toastStore.add({ message: 'Fill all fields!', status: 'warning' })
+    return
+  }
+  insertProduct(newProduct.value)
+    .then(res => {
+      products.push(res.data)
+      toastStore.add({ message: 'Sucess to insert a product', status: 'success' })
+      newProduct.value = emptyState
+    })
+    .catch(() => {
+      toastStore.add({ message: 'Error to insert a product!', status: 'error' })
+    })
 }
 </script>
 
 <template>
+  <ToastList />
   <div class="mt-5">
     <h1 class="text-center text-3xl font-bold">New Product</h1>
     <hr class="mx-auto my-5 w-1/2 lg:w-1/6" />

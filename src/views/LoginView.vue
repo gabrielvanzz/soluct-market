@@ -4,14 +4,17 @@ import { useUserStore } from '@/stores/user'
 import { loginUser } from '@/services/userService'
 import InputComponent from '@/components/InputComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent.vue'
+import { useToastStore } from '@/stores/toast'
+import ToastList from '@/components/Toast/ToastList.vue'
 
 const username = ref<string>('')
 const password = ref<string>('')
 const { login } = useUserStore()
+const toastStore = useToastStore()
 
 const handleLogin = () => {
   if (!username.value || !password.value) {
-    alert('Please fill in all fields')
+    toastStore.add({ message: 'Fill all the fields!', status: 'warning' })
     return
   }
   loginUser({ username: username.value, password: password.value })
@@ -19,12 +22,13 @@ const handleLogin = () => {
       login(res.data)
     })
     .catch(() => {
-      alert('Invalid credentials')
+      toastStore.add({ message: 'Wrong User or Password!', status: 'error' })
     })
 }
 </script>
 
 <template>
+  <ToastList />
   <div class="sm: flex h-screen items-center justify-center">
     <div>
       <h1 class="text-center text-3xl font-bold">Login</h1>

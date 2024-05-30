@@ -4,6 +4,8 @@ import type { Product } from '@/utils/Product'
 import { computed } from 'vue'
 import { deleteProduct } from '@/services/productService'
 import { useProductStore } from '@/stores/product'
+import ToastList from '../Toast/ToastList.vue'
+import { useToastStore } from '@/stores/toast'
 
 const props = defineProps({
   product: {
@@ -13,6 +15,7 @@ const props = defineProps({
 })
 
 const { products } = useProductStore()
+const toastStore = useToastStore()
 
 const productDetails = computed(() => {
   return {
@@ -28,23 +31,31 @@ const productDetails = computed(() => {
 })
 
 const handleDeleteProduct = (productId: number) => {
-  deleteProduct(productId).then(() => {
-    alert('Product deleted successfully')
-    const indexToRemove = products.findIndex(product => product.id === productId)
-    if (indexToRemove > -1) {
-      products.splice(indexToRemove, 1)
-    }
-    closeModal()
-  })
+  deleteProduct(productId)
+    .then(() => {
+      toastStore.add({ message: 'Product deleted successfully!', status: 'success' })
+      const indexToRemove = products.findIndex(product => product.id === productId)
+      if (indexToRemove > -1) {
+        products.splice(indexToRemove, 1)
+      }
+      setTimeout(() => {
+        closeModal()
+      }, 1000)
+    })
+    .catch(() => {
+      toastStore.add({ message: 'Error on update the product', status: 'error' })
+    })
 }
 const emit = defineEmits(['update:isOpen'])
 
 function closeModal() {
   emit('update:isOpen', false)
+  toastStore.remove(toastStore.toasts[0].id)
 }
 </script>
 
 <template>
+  <ToastList />
   <div class="mt-10 flex flex-col justify-evenly lg:flex-row">
     <div class="flex w-full flex-col items-center justify-center p-4 lg:w-1/2">
       <img :src="productDetails.image" alt="props.image" class="mx-auto h-40 w-40" />
