@@ -10,8 +10,8 @@ import ButtonComponent from './ButtonComponent.vue'
 const props = defineProps({
   isOpen: Boolean,
   product: {
-    type: Object as () => Product | null,
-    required: true
+    type: Object as () => Product,
+    required: false
   }
 })
 

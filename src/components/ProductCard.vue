@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import type { Product } from '@/utils/Product'
 
-const props = defineProps<{ product: Product | null }>()
+const props = defineProps({
+  product: {
+    type: Object as () => Product,
+    required: false
+  }
+})
 </script>
 
 <template>

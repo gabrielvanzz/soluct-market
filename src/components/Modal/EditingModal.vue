@@ -1,18 +1,22 @@
 <script setup lang="ts">
 import { defineProps, ref } from 'vue'
-import ModalField from './ModalField.vue'
 import InputComponent from '@/components/InputComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent.vue'
 
 import type { Product } from '@/utils/Product'
 import SelectOption from '../SelectOption.vue'
 import { updateProduct } from '@/services/productService'
-import { categories } from '@/utils/ProductOptions'
+import { useCategoryStore } from '@/stores/category'
+import { useProductStore } from '@/stores/product'
+
+const { categories } = useCategoryStore()
+
+const { products } = useProductStore()
 
 const props = defineProps({
   product: {
-    type: Object as () => Product | null,
-    required: true
+    type: Object as () => Product,
+    required: false
   }
 })
 
@@ -26,9 +30,13 @@ const editedItem = ref<Product>({
 })
 
 const handleSubmit = () => {
-  updateProduct(props.product?.id ?? 0, editedItem.value)
-    .then(res => {
+  updateProduct(editedItem.value.id ?? 0, editedItem.value)
+    .then(() => {
       alert('Product updated successfully')
+      const indexToEdit = products.findIndex(product => product.id === editedItem.value.id)
+      if (indexToEdit > -1) {
+        products[indexToEdit] = editedItem.value
+      }
       closeModal()
     })
     .catch(err => {
@@ -49,7 +57,7 @@ function closeModal() {
 
 <template>
   <form @submit.prevent="handleSubmit">
-    <ModalField>
+    <div class="mt-10 flex flex-col justify-evenly lg:flex-row">
       <div class="flex w-full flex-col items-center justify-center p-4 lg:w-1/2">
         <img :src="props.product?.image" alt="props.image" class="h-40 w-40" />
         <InputComponent v-model="editedItem.image" label="Image" class="w-full lg:w-1/2" />
@@ -77,7 +85,7 @@ function closeModal() {
           type="number"
         />
       </div>
-    </ModalField>
+    </div>
     <div class="mt-5 flex justify-between">
       <ButtonComponent @click="closeEdit" type="button" variant="danger">Cancel</ButtonComponent>
       <ButtonComponent type="submit" variant="primary">Save</ButtonComponent>

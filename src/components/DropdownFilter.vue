@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { SlidersHorizontal } from 'lucide-vue-next'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+import type { Option } from '@/utils/Option'
 
 const props = defineProps({
   items: {
-    type: Array as () => string[],
+    type: Array as () => Option[],
     required: true
   }
 })
@@ -28,15 +29,15 @@ const filter = (selectedItem: string) => {
       <MenuItems
         class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
       >
-        <MenuItem v-for="item in props.items" :key="item" as="div" v-slot="{ active }">
+        <MenuItem v-for="item in props.items" :key="item.value" as="div" v-slot="{ active }">
           <button
             :class="[
               active ? 'bg-gray-500 text-white' : 'text-gray-900',
               'group flex w-full items-center rounded-md px-2 py-2 text-sm'
             ]"
-            @click="filter(item)"
+            @click="filter(item.value)"
           >
-            {{ item }}
+            {{ item.label }}
           </button>
         </MenuItem>
         <MenuItem v-slot="{ active }" as="div">

@@ -6,3 +6,7 @@ export interface Product {
   description: string
   image: string
 }
+
+export function parseCategories(categories: string[]) {
+  return categories.map(category => ({ value: category, label: category }))
+}
