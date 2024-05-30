@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import InputComponent from '@/components/InputComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent.vue'
 import type { Product } from '@/utils/Product'
-import ModalField from './ModalField.vue'
 import { computed } from 'vue'
-import SelectOption from '../SelectOption.vue'
 import { deleteProduct } from '@/services/productService'
+import { useProductStore } from '@/stores/product'
 
 const props = defineProps({
   product: {
-    type: Object as () => Product | null,
-    required: true
+    type: Object as () => Product,
+    required: false
   }
 })
+
+const { products } = useProductStore()
 
 const productDetails = computed(() => {
   return {
@@ -21,13 +21,19 @@ const productDetails = computed(() => {
     image: props.product?.image ?? '',
     description: props.product?.description ?? '',
     category: props.product?.category ?? '',
-    price: props.product?.price ?? 0
+    price: new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(
+      props.product?.price ?? 0
+    )
   }
 })
 
 const handleDeleteProduct = (productId: number) => {
-  deleteProduct(productId).then(res => {
+  deleteProduct(productId).then(() => {
     alert('Product deleted successfully')
+    const indexToRemove = products.findIndex(product => product.id === productId)
+    if (indexToRemove > -1) {
+      products.splice(indexToRemove, 1)
+    }
     closeModal()
   })
 }
@@ -39,40 +45,30 @@ function closeModal() {
 </script>
 
 <template>
-  <ModalField>
+  <div class="mt-10 flex flex-col justify-evenly lg:flex-row">
     <div class="flex w-full flex-col items-center justify-center p-4 lg:w-1/2">
-      <img :src="props.product?.image" alt="props.image" class="mx-auto h-40 w-40" />
+      <img :src="productDetails.image" alt="props.image" class="mx-auto h-40 w-40" />
     </div>
     <div class="lg:w-1/2 lg:p-4">
       <h4 class="text-lg font-semibold text-gray-700">Product Details</h4>
       <hr class="mb-10 w-full" />
-      <label class="text-sm font-semibold text-gray-700">Description</label>
 
-      <div class="lg:w-full">
-        <textarea
-          class="h-40 w-full resize-none rounded-lg border border-gray-300 p-2 shadow-sm outline-none"
-          :value="props.product?.description"
-          readonly
-        />
+      <div class="space-y-4 lg:w-full">
         <div>
-          <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
-          <SelectOption
-            v-model="productDetails.category"
-            :defaultValue="productDetails.category"
-            :disabled="true"
-          />
+          <span class="text-sm font-semibold text-gray-700">Description</span>
+          <p>{{ productDetails.description }}</p>
         </div>
 
-        <InputComponent
-          v-model="productDetails.price"
-          label="Price in $"
-          :disabled="true"
-          class="lg:w-1/4"
-          type="number"
-        />
+        <div>
+          <span class="block text-sm font-medium text-gray-700">Category</span>
+          <span>{{ productDetails.category }}</span>
+        </div>
+
+        <span class="block text-sm font-medium text-gray-700">Price in R$</span>
+        <span>{{ productDetails.price }}</span>
       </div>
     </div>
-  </ModalField>
+  </div>
   <div class="mt-5 flex justify-start">
     <div class="flex items-start">
       <ButtonComponent
