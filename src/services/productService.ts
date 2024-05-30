@@ -2,21 +2,10 @@ import type { Product } from '@/utils/Product'
 import axiosConfig from './axiosConfiguration'
 import type { SortBy } from '@/utils/ProductOptions'
 
-export async function getProducts(limit?: string, sortBy?: SortBy) {
+export async function getProducts(limit?: string, sortBy?: SortBy, categoryId?: string) {
   return axiosConfig({
     method: 'GET',
-    url: '/products',
-    params: {
-      sort: sortBy,
-      limit: limit
-    }
-  })
-}
-
-export async function getProductsByCategory(category: string, limit?: string, sortBy?: SortBy) {
-  return axiosConfig({
-    method: 'GET',
-    url: `/products/category/${category}`,
+    url: `/products${categoryId ? `/category/${categoryId}` : ''}`,
     params: {
       sort: sortBy,
       limit: limit
@@ -43,5 +32,19 @@ export async function deleteProduct(productId: number) {
   return axiosConfig({
     method: 'DELETE',
     url: `/products/${productId}`
+  })
+}
+
+export async function insertProduct(data: Omit<Product, 'id'>) {
+  return axiosConfig({
+    method: 'POST',
+    url: '/products',
+    data: {
+      name: data.title,
+      price: data.price,
+      category: data.category,
+      description: data.description,
+      image: data.image
+    }
   })
 }
