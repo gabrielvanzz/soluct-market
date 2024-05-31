@@ -3,15 +3,21 @@ import ButtonComponent from '@/components/ButtonComponent.vue'
 import InputComponent from '@/components/InputComponent.vue'
 import SelectOption from '@/components/SelectOption.vue'
 import ToastList from '@/components/Toast/ToastList.vue'
-import router from '@/router'
-import { insertProduct } from '@/services/productService'
+import { getAllCategories, insertProduct } from '@/services/productService'
 import { useCategoryStore } from '@/stores/category'
 import { useProductStore } from '@/stores/product'
 import { useToastStore } from '@/stores/toast'
-import { ref } from 'vue'
+import { parseCategories } from '@/utils/Product'
+import { onMounted, ref } from 'vue'
 
-const { categories } = useCategoryStore()
+const categoryStore = useCategoryStore()
 const toastStore = useToastStore()
+
+onMounted(() => {
+  getAllCategories().then(response => {
+    categoryStore.categories = parseCategories(response.data)
+  })
+})
 
 const emptyState = {
   name: '',
@@ -27,8 +33,15 @@ const { products } = useProductStore()
 const newProduct = ref(emptyState)
 
 const handleSubmit = () => {
-  if (newProduct.value === emptyState) {
-    console.log('aqui')
+  if (
+    !newProduct.value.title ||
+    !newProduct.value.name ||
+    !newProduct.value.image ||
+    !newProduct.value.price ||
+    !newProduct.value.category ||
+    !newProduct.value.description ||
+    newProduct.value.price <= 0
+  ) {
     toastStore.add({ message: 'Fill all fields!', status: 'warning' })
     return
   }
@@ -69,7 +82,11 @@ const handleSubmit = () => {
           <div class="flex w-full flex-col items-center justify-center lg:w-1/3 lg:flex-row">
             <div class="mt-3 w-full">
               <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
-              <SelectOption v-model="newProduct.category" :options="categories" class="w-11/12" />
+              <SelectOption
+                v-model="newProduct.category"
+                :options="categoryStore.categories"
+                class="h-10 w-11/12"
+              />
             </div>
           </div>
         </div>
@@ -91,7 +108,4 @@ const handleSubmit = () => {
       </form>
     </div>
   </div>
-  <footer class="mt-5 flex items-center justify-center">
-    <p class="text-sm text-gray-500">© 2024 Gabriel Vanz.</p>
-  </footer>
 </template>

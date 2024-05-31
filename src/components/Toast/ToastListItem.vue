@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ToastStatus } from '@/stores/toast'
-import { CircleAlert } from 'lucide-vue-next'
+import { CheckCircle2, CircleAlert, CircleX } from 'lucide-vue-next'
 import { onMounted } from 'vue'
 
 const props = defineProps<{ message: string; status: ToastStatus }>()
@@ -26,9 +26,9 @@ props.status == "error" }">
     }"
   >
     <div class="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg">
-      <CircleAlert v-if="props.status === 'success'" class="text-green-500" />
+      <CheckCircle2 v-if="props.status === 'success'" class="text-green-500" />
       <CircleAlert v-if="props.status === 'warning'" class="text-yellow-500" />
-      <CircleAlert v-if="props.status === 'error'" class="text-red-500" />
+      <CircleX v-if="props.status === 'error'" class="text-red-500" />
     </div>
     <div class="ms-3 text-sm font-normal">{{ props.message }}</div>
     <button

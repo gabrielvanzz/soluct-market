@@ -68,7 +68,6 @@ npm run lint
 
 ## Project Structure
 
-- src/assets :  Containing the static files like, images and fonts
 - src/components: Containing the components of the project that are reusable
 - src/router: Containing the routes of the project
 - src/services: Containing the API calls 
@@ -83,15 +82,14 @@ npm run lint
 - [Vite](https://vitejs.dev/)
 - [Pinia](https://pinia.esm.dev/)
 - [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
-- [Vitest](https://vitest.dev/)
 - [ESLint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
-- [Axios](https://axios-http.com/)
 - [Vue Router](https://router.vuejs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Lucide Icons](https://lucide-icons.web.app/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Headless UI](https://headlessui.dev/)
+- [Tailwind CSS](https://tailwindcss.com/) -> Used for the styles of the project
+- [Lucide Icons](https://lucide-icons.web.app/) -> Used for the icons on project
+- [Axios](https://axios-http.com/) -> Used for HTTPS Requests
+- [Headless UI](https://headlessui.dev/) -> Used for DropDown Filter, Select and Modal
 
 
 ## How to Test
@@ -177,6 +175,77 @@ npm run lint
     Note: The user can close the modal by clicking outside the modal or in the close button.
     
 </details>
+<details>
+    <summary>Test the Product Edit</summary>
+
+    -- As a user, I want to edit the selected product --
+
+    The user can click on the pencil icon for open an Edit Modal inside the product modal.
+
+    Tests:
+
+    Clicking in the edit modal shall switch the fields to input fields, and the user can edit the fields. After the user clicks on the save button, the product will be updated.
+
+    Clicking outside the modal or in the close button, shall close the modal without saving the changes.
+
+    Note: After edit, the user can verify the changes by clicking in the product again, if the user reload the page, the changes will be lost.
+    
+</details>
+
+<details>
+    <summary>Test the Product Delete</summary>
+
+    -- As a user, I want to deleted the selected product --
+
+    The user can click on the delete button, inside the product modal.
+
+    Tests:
+
+    Clicking in the delete button shall delete the product. After the click, the modal will close
+
+    Note: After edit, the user can verify the delete by viewing the product list, if the user reload the page, the changes will be lost, he can filter the products by category to see the changes.
+    
+</details>
+
+<details>
+    <summary>Test the Product Insert</summary>
+
+    -- As a user, I want to insert an product --
+
+    The user can click on + icon in the header, to navigate to a '/new-product' route, where the user can insert a new product.
+
+    Tests:
+
+    Filling the fields and clicking in the save button, shall insert the product in the list. After the click, shall be showed a toast with the message "Product inserted successfully", we can see the new product in the payload/preview.
+
+    Note: After insert, the user can't verify the changes, because when we redirect or click to go back, the changes will be lost
+</details>
+
+<details>
+    <summary>Test the Product List</summary>
+
+    -- As a user, I want to go back into Product List --
+
+    The user can click on the 'soluct market' and navigate to the home page.
+
+    Tests:
+    Clicking into the 'soluct market' shall navigate to the home page, where the user can see the products.
+</details>
+
+<details>
+    <summary>Test the Toast</summary>
+
+    -- As a user, I want to see feedbacks for my actions --
+
+    Everytime the user makes an action that causes a change, a toast will be shown with the message of the action.
+
+    Tests:
+    Making a change in the products, shall show a toast with the message of the action.
+    Making a login with the wrong credentials, shall show a toast with the message of the error.
+    Making a login with the right credentials, shall show a toast with the message of the success.
+    Making a login without the credentials, shall show a toast with the message of the warning.
+</details>
+
 <details>
     <summary>Test the Responsiveness</summary>
 

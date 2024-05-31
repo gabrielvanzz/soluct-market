@@ -19,6 +19,9 @@ onBeforeMount(() => {
 <template>
   <HomeHeader v-if="user.isAuthenticated" />
   <RouterView />
+  <footer class="mt-5 flex items-center justify-center">
+    <p class="text-sm text-gray-500">© 2024 Gabriel Vanz.</p>
+  </footer>
 </template>
 
 <style scoped></style>

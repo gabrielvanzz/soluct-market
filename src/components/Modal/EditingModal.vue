@@ -83,7 +83,7 @@ function closeModal() {
           class="h-40 w-full resize-none rounded-lg border border-gray-300 p-2 shadow-sm outline-none"
           v-model="editedItem.description"
         />
-        <div class="w-full lg:w-1/4">
+        <div class="w-full lg:w-1/3">
           <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
           <SelectOption v-model="editedItem.category" :options="categories" />
         </div>
